@@ -10,8 +10,8 @@
         <span class="slider round"></span>
       </label>
       <div>
-        <b-icon icon="github" title="GitHub" class="mr-1"></b-icon>
-        <a href="https://github.com/azreenbd" title="GitHub" target="_blank" class="text-muted">azreenbd</a>
+        <a href="https://github.com/azreenbd" title="GitHub" target="_blank" class="text-muted"><b-icon icon="github" title="GitHub" class="mr-1"></b-icon></a>
+        <a href="https://azreenbd.com" title="Azreenbd Website" target="_blank" class="text-muted">azreenbd.com</a>
       </div>
     </footer>
   </div>
