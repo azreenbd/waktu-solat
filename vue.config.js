@@ -6,6 +6,22 @@ module.exports = {
       .plugin('html')
       .tap(args => {
           args[0].title = "Waktu Solat";
+
+          // scripts/prerender.js keys off the <!--SEO--> and <!--PRERENDER-->
+          // markers in index.html. html-webpack-plugin defaults to minify:'auto',
+          // which strips comments in production, so spell the options out here.
+          if(process.env.NODE_ENV === 'production') {
+            args[0].minify = {
+              collapseWhitespace: true,
+              keepClosingSlash: true,
+              removeComments: false,
+              removeRedundantAttributes: true,
+              removeScriptTypeAttributes: true,
+              removeStyleLinkTypeAttributes: true,
+              useShortDoctype: true
+            };
+          }
+
           return args;
       })
   }

@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="ms">
   <head>
-    <meta name="description" content="Check daily waktu solat across Malaysia with a clean, easy-to-use interface." />
-    <link rel="canonical" href="https://solat.azreenbd.com" />
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -12,7 +9,22 @@
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="manifest" href="manifest.json">
 
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!--SEO-->
+    <title>Waktu Solat Hari Ini - Seluruh Malaysia</title>
+    <meta name="description" content="Waktu solat hari ini untuk semua zon di Malaysia. Imsak, Subuh, Syuruk, Zohor, Asar, Maghrib dan Isyak, dikemas kini setiap hari.">
+    <link rel="canonical" href="https://solat.azreenbd.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Waktu Solat">
+    <meta property="og:locale" content="ms_MY">
+    <meta property="og:title" content="Waktu Solat Hari Ini - Seluruh Malaysia">
+    <meta property="og:description" content="Waktu solat hari ini untuk semua zon di Malaysia. Imsak, Subuh, Syuruk, Zohor, Asar, Maghrib dan Isyak, dikemas kini setiap hari.">
+    <meta property="og:url" content="https://solat.azreenbd.com/">
+    <meta property="og:image" content="https://solat.azreenbd.com/img/logo-pwa.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Waktu Solat Hari Ini - Seluruh Malaysia">
+    <meta name="twitter:description" content="Waktu solat hari ini untuk semua zon di Malaysia. Imsak, Subuh, Syuruk, Zohor, Asar, Maghrib dan Isyak, dikemas kini setiap hari.">
+    <meta name="twitter:image" content="https://solat.azreenbd.com/img/logo-pwa.png">
+    <!--/SEO-->
 
     <link rel="apple-touch-icon" href="img/icons/apple-icon-180.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -54,7 +66,7 @@
         <p>Maaf, tetapi <%= htmlWebpackPlugin.options.title %> tidak berfungsi dengan baik tanpa JavaScript diaktifkan. Sila aktifkannya untuk teruskan.</p>
       </div>
     </noscript>
-    <div id="app"></div>
+    <div id="app"><!--PRERENDER--></div>
     <!-- built files will be auto injected -->
 
     <script>
