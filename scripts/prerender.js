@@ -116,7 +116,8 @@ function townLinks(list) {
 }
 
 // Replaces the #app placeholder. Vue swaps the whole element on mount, so this
-// is never hydrated and never seen by a visitor with JavaScript enabled.
+// is never hydrated. It is painted before the bundle runs, though, so CSS hides
+// [data-prerender] and a <noscript> override brings it back without JavaScript.
 function fallbackBody(page) {
   // A directory page has no times of its own, so listing the prayer names there
   // would read as a claim that the whole state shares one schedule.
@@ -136,7 +137,7 @@ function fallbackBody(page) {
       : '<span class="sr-only">Waktu Solat </span>' + escapeHtml(page.place);
 
   return (
-    "<main>" +
+    '<main data-prerender>' +
     "<h1>" +
     h1 +
     "</h1>" +

@@ -19,3 +19,10 @@ html, body {
 .max-width {
     max-width: 980px;
 }
+
+/* Prerendered crawler fallback inside #app. CSS is render blocking, so hiding it
+   here means it never paints before Vue mounts and replaces #app. The <noscript>
+   block in index.html puts it back for visitors without JavaScript. */
+#app > [data-prerender] {
+    display: none;
+}
