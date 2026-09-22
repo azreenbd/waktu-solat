@@ -1,8 +1,8 @@
 <template>
     <div class="d-flex flex-column align-items-center text-muted mt-4">
-        <small class="mb-1">Tema</small>
+        <small class="mb-1" aria-hidden="true">Tema</small>
         <label class="switch mb-0">
-            <input type="checkbox" :checked="dark" @change="setTheme(!dark)">
+            <input type="checkbox" role="switch" aria-label="Mod gelap" :checked="dark" @change="setTheme(!dark)">
             <span class="slider round"></span>
         </label>
     </div>
@@ -81,6 +81,19 @@ input:checked + .slider:before {
   background: #0f0f0f url('~@/assets/img/moon-stars-fill.svg');
   background-repeat: no-repeat;
   background-position: center;
+}
+
+/* The input is invisible, so the slider carries its focus ring. */
+input:focus-visible + .slider {
+  outline: 2px solid #0adf3f;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider, .slider:before {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 /* Rounded sliders */

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <div class="d-flex justify-content-center flex-grow-1">
+    <main ref="main" class="d-flex justify-content-center flex-grow-1" tabindex="-1">
       <router-view :dark-mode="darkMode"></router-view>
-    </div>
+    </main>
     <footer class="d-flex flex-column justify-content-center align-items-center text-muted py-4">
       <nav v-if="footerLinks.towns.length" class="town-links text-center mb-4 px-3" aria-label="Bandar lain">
         <h2 class="h6 mb-2">Waktu solat di {{ footerLinks.state }}</h2>
@@ -12,8 +12,8 @@
       </nav>
 
       <div>
-        <a href="https://github.com/azreenbd" title="GitHub" target="_blank" class="text-muted"><b-icon icon="github" title="GitHub" class="mr-1"></b-icon></a>
-        <a href="https://azreenbd.com" title="Azreenbd Website" target="_blank" class="text-muted">azreenbd.com</a>
+        <a href="https://github.com/azreenbd" title="GitHub" target="_blank" rel="noopener" class="text-muted"><b-icon icon="github" aria-hidden="true" class="mr-1"></b-icon><span class="sr-only">GitHub (tab baharu)</span></a>
+        <a href="https://azreenbd.com" title="Azreenbd Website" target="_blank" rel="noopener" class="text-muted">azreenbd.com<span class="sr-only"> (tab baharu)</span></a>
       </div>
     </footer>
   </div>
@@ -34,6 +34,15 @@ export default {
       return theme.dark;
     }
   },
+  watch: {
+    // Client-side navigation keeps focus on the old link or select, so screen
+    // readers never hear the new page. The initial load does not trigger this.
+    $route() {
+      this.$nextTick(() => {
+        (this.$refs.main.querySelector("h1") || this.$refs.main).focus();
+      });
+    }
+  },
   created() {
     loadTheme();
   }
@@ -41,6 +50,10 @@ export default {
 </script>
 
 <style>
+main:focus {
+  outline: none;
+}
+
 .town-links {
   max-width: 100ch;
   margin-inline: auto;

@@ -1,10 +1,10 @@
 <template>
     <div class="p-3 max-width">
         <div v-if="!isDirectory && !waktuSolat && isLoading" class="d-flex align-items-center h-100">
-            <div class="loader"></div>
+            <div class="loader" role="status"><span class="sr-only">Memuatkan…</span></div>
         </div>
         <div v-else-if="!isDirectory && !waktuSolat && isError" class="d-flex align-items-center h-100">
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column" role="alert">
                 <logo color="#a2a2a2" class="m-4 align-self-center" />
                 <p class="align-self-center">Ralat memuatkan data.</p>
                 <small class="text-muted align-self-center">Maaf, terdapat masalah untuk memuatkan laman web. Sila cuba lagi.</small>
@@ -14,14 +14,15 @@
             <div>
                 <div class="d-flex align-items-end m-1 mb-3">
                     <logo class="mr-1" />
-                    <h1 class="h2 m-0"><span class="sr-only">Waktu Solat </span>{{ place }}</h1>
+                    <h1 ref="heading" class="h2 m-0" tabindex="-1"><span class="sr-only">Waktu Solat </span>{{ place }}</h1>
                 </div>
                 
                 <div v-if="isDirectory" class="box" :class="{ dark: darkMode }">
-                    <b-form-select :value="null" :options="directoryOptions" class="mb-2" :class="{ dark: darkMode }" @change="onZoneChange"></b-form-select>
+                    <label for="zone-select" class="sr-only">Pilih zon</label>
+                    <b-form-select id="zone-select" :value="null" :options="directoryOptions" class="mb-2" :class="{ dark: darkMode }" @change="onZoneChange"></b-form-select>
 
                     <div v-for="zone in currentState.zones" :key="zone.id" class="mt-4">
-                        <div class="zone-title mb-2">{{ zone.id }}</div>
+                        <h2 class="zone-title h6 mb-2">{{ zone.id }}</h2>
                         <div>
                             <router-link v-for="town in zoneTowns(zone.id)" :key="town.townSlug" :to="townPath(town)" class="pill-link" :class="{ dark: darkMode }">{{ town.town }}</router-link>
                         </div>
@@ -29,7 +30,8 @@
                 </div>
 
                 <div v-else class="box" :class="{ dark: darkMode }">
-                    <b-form-select v-model="zoneId" :options="options" class="mb-4" :class="{ dark: darkMode }" @change="onZoneChange"></b-form-select>
+                    <label for="zone-select" class="sr-only">Pilih zon</label>
+                    <b-form-select id="zone-select" v-model="zoneId" :options="options" class="mb-4" :class="{ dark: darkMode }" @change="onZoneChange"></b-form-select>
 
                     <div>
                         <div class="pl-1 mb-5">
@@ -38,36 +40,37 @@
                             <p class="h1 text-green">{{ nowSolat.name }}</p>
                             <p class="h3">{{ formatTime(nowSolat.time) }}</p>
                         </div>
-                        <div class="d-flex flex-wrap">
-                            <div class="sub-box" :class="{ dark: darkMode }">
+                        <h2 class="sr-only">Waktu solat hari ini</h2>
+                        <ul class="d-flex flex-wrap list-unstyled mb-0">
+                            <li class="sub-box" :class="{ dark: darkMode }">
                                 <div class="mb-3 title">Imsak</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].imsak) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ active: isSubuh, dark: darkMode }">
-                                <div class="mb-3 title">Subuh</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].fajr) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ dark: darkMode }">
+                                <div class="lead"><time :datetime="waktuSolat[0].imsak">{{ formatTime(waktuSolat[0].imsak) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ active: isSubuh, dark: darkMode }" :aria-current="isSubuh ? 'true' : null">
+                                <div class="mb-3 title">Subuh<span v-if="isSubuh" class="sr-only"> (waktu sekarang)</span></div>
+                                <div class="lead"><time :datetime="waktuSolat[0].fajr">{{ formatTime(waktuSolat[0].fajr) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ dark: darkMode }">
                                 <div class="mb-3 title">Syuruk</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].syuruk) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ active: isZohor, dark: darkMode }">
-                                <div class="mb-3 title">Zohor</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].dhuhr) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ active: isAsar, dark: darkMode }">
-                                <div class="mb-3 title">Asar</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].asr) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ active: isMaghrib, dark: darkMode }">
-                                <div class="mb-3 title">Maghrib</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].maghrib) }}</div>
-                            </div>
-                            <div class="sub-box" :class="{ active: isIsyak, dark: darkMode }">
-                                <div class="mb-3 title">Isyak</div>
-                                <div class="lead">{{ formatTime(waktuSolat[0].isha) }}</div>
-                            </div>
-                        </div>
+                                <div class="lead"><time :datetime="waktuSolat[0].syuruk">{{ formatTime(waktuSolat[0].syuruk) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ active: isZohor, dark: darkMode }" :aria-current="isZohor ? 'true' : null">
+                                <div class="mb-3 title">Zohor<span v-if="isZohor" class="sr-only"> (waktu sekarang)</span></div>
+                                <div class="lead"><time :datetime="waktuSolat[0].dhuhr">{{ formatTime(waktuSolat[0].dhuhr) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ active: isAsar, dark: darkMode }" :aria-current="isAsar ? 'true' : null">
+                                <div class="mb-3 title">Asar<span v-if="isAsar" class="sr-only"> (waktu sekarang)</span></div>
+                                <div class="lead"><time :datetime="waktuSolat[0].asr">{{ formatTime(waktuSolat[0].asr) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ active: isMaghrib, dark: darkMode }" :aria-current="isMaghrib ? 'true' : null">
+                                <div class="mb-3 title">Maghrib<span v-if="isMaghrib" class="sr-only"> (waktu sekarang)</span></div>
+                                <div class="lead"><time :datetime="waktuSolat[0].maghrib">{{ formatTime(waktuSolat[0].maghrib) }}</time></div>
+                            </li>
+                            <li class="sub-box" :class="{ active: isIsyak, dark: darkMode }" :aria-current="isIsyak ? 'true' : null">
+                                <div class="mb-3 title">Isyak<span v-if="isIsyak" class="sr-only"> (waktu sekarang)</span></div>
+                                <div class="lead"><time :datetime="waktuSolat[0].isha">{{ formatTime(waktuSolat[0].isha) }}</time></div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -307,6 +310,14 @@ export default {
                         
                         // Find current/upcoming prayer time
                         this.nowSolat = this.currentSolat(this.waktuSolat[0]);
+
+                        // App parks focus on <main> when a route change lands on the
+                        // loader; hand it to the heading once the heading exists.
+                        this.$nextTick(() => {
+                            if(document.activeElement && document.activeElement.tagName === 'MAIN') {
+                                this.$refs.heading.focus();
+                            }
+                        });
                     } else {
                         this.isLoading = false;
                         this.isError = true;
@@ -686,6 +697,17 @@ select.dark {
 
     .sub-box:nth-child(2n) {
         margin-right: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sub-box.active {
+        animation: none;
+    }
+
+    // Slowed, not stopped: a still ring reads as a frozen page.
+    .loader {
+        animation-duration: 6s;
     }
 }
 </style>

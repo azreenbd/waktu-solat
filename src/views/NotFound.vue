@@ -4,7 +4,7 @@
             <div>
                 <div class="d-flex align-items-end m-1 mb-3">
                     <logo class="mr-1" />
-                    <h1 class="h2 m-0">Ralat 404</h1>
+                    <h1 class="h2 m-0" tabindex="-1">Ralat 404</h1>
                 </div>
 
                 <div class="box text-center py-3 px-5" :class="{ dark: darkMode }">
