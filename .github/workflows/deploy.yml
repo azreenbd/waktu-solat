@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - master
+  # Refreshes the cached prayer times in dist/data. 17:00 UTC on the 1st is
+  # 01:00 MYT, so the new year's data lands early on 1 January.
+  schedule:
+    - cron: "0 17 1 * *"
+  workflow_dispatch:
 
 permissions:
   contents: read

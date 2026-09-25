@@ -301,23 +301,17 @@ export default {
                     period = 'today'
             }
 
+            let cached = period === 'today' ? await this.cachedToday(zone) : null;
+
+            if(cached) {
+                this.showWaktuSolat([cached]);
+                return;
+            }
+
             await $.get(`TakwimSolat&period=${period}&zone=${zone}`).then(
                 response => {
                     if(response.status == "200" && response.data.status =="OK!") {
-                        this.waktuSolat = response.data.prayerTime;
-                        this.isLoading = false;
-                        this.isError = false;
-                        
-                        // Find current/upcoming prayer time
-                        this.nowSolat = this.currentSolat(this.waktuSolat[0]);
-
-                        // App parks focus on <main> when a route change lands on the
-                        // loader; hand it to the heading once the heading exists.
-                        this.$nextTick(() => {
-                            if(document.activeElement && document.activeElement.tagName === 'MAIN') {
-                                this.$refs.heading.focus();
-                            }
-                        });
+                        this.showWaktuSolat(response.data.prayerTime);
                     } else {
                         this.isLoading = false;
                         this.isError = true;
@@ -327,6 +321,48 @@ export default {
             ).catch(() => {
                 this.isLoading = false;
                 this.isError = true;
+            });
+        },
+        // Reads the yearly file scripts/fetch-times.js writes at build time.
+        // Returns null when there is no usable row, so the caller hits the API.
+        async cachedToday(zone) {
+            // Malaysia has no DST, so a fixed +8h gives the MYT date whatever the
+            // device timezone is.
+            let now = new Date(Date.now() + 8 * 3600 * 1000);
+            let year = now.getUTCFullYear();
+            let dayOfYear = Math.floor((now - Date.UTC(year, 0, 1)) / 86400000);
+
+            try {
+                let response = await axios.get(`${process.env.BASE_URL}data/${year}/${zone}.json`);
+                // The dev server answers unknown paths with index.html, not a 404.
+                let row = Array.isArray(response.data) ? response.data[dayOfYear] : null;
+                let day = String(now.getUTCDate()).padStart(2, '0');
+
+                // Dates use Malay month names (e.g. 31-Dis-2026), so check day and
+                // year only instead of parsing the string.
+                if(row && row.date.slice(0, 2) === day && row.date.slice(-4) === String(year)) {
+                    return row;
+                }
+            } catch(e) {
+                // Missing file or network error: fall through to the API.
+            }
+
+            return null;
+        },
+        showWaktuSolat(prayerTime) {
+            this.waktuSolat = prayerTime;
+            this.isLoading = false;
+            this.isError = false;
+
+            // Find current/upcoming prayer time
+            this.nowSolat = this.currentSolat(this.waktuSolat[0]);
+
+            // App parks focus on <main> when a route change lands on the
+            // loader; hand it to the heading once the heading exists.
+            this.$nextTick(() => {
+                if(document.activeElement && document.activeElement.tagName === 'MAIN') {
+                    this.$refs.heading.focus();
+                }
             });
         },
         populateZoneSelect(zones, states) {
