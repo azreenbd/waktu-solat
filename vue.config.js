@@ -1,3 +1,9 @@
+// Vue CLI has loaded the .env files by the time this runs. Without the value
+// every canonical and og:url would point at "undefined".
+if (!process.env.VUE_APP_SITE_URL) {
+  throw new Error("VUE_APP_SITE_URL is not set -- see .env.example");
+}
+
 module.exports = {
   //change if true to '/waktu-solat/' if the intended domain is foo.github.io/waktu-solat
   publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',

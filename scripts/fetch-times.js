@@ -3,6 +3,8 @@
 // fails (it often does under Ramadhan traffic), the file is copied from the live
 // site instead, because each deploy replaces the whole site. A zone with no file
 // makes the app fall back to the live API.
+require("./load-env");
+
 const fs = require("fs");
 const path = require("path");
 const axios = require("axios");

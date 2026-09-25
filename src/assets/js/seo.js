@@ -1,6 +1,7 @@
 // CommonJS for the same reason as locations.js: shared by the Vue app and by
 // scripts/prerender.js, so a page's runtime tags and its prerendered tags match.
-var SITE_URL = "https://solat.azreenbd.com";
+// Inlined by webpack at build time; the postbuild scripts get it from scripts/load-env.js.
+var SITE_URL = process.env.VUE_APP_SITE_URL;
 var SITE_NAME = "Waktu Solat";
 var OG_IMAGE = SITE_URL + "/img/logo-pwa.png";
 var WAKTU = ["Imsak", "Subuh", "Syuruk", "Zohor", "Asar", "Maghrib", "Isyak"];

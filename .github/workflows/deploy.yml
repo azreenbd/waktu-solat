@@ -34,6 +34,8 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VUE_APP_SITE_URL: ${{ vars.VUE_APP_SITE_URL }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

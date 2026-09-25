@@ -25,6 +25,7 @@ Deployed at https://solat.azreenbd.com
 
 ```
 npm install
+cp .env.example .env.local
 ```
 
 ### Dev server with hot reload
@@ -41,14 +42,27 @@ npm run build
 
 `postbuild` then runs:
 
-1. [scripts/fetch-times.js](scripts/fetch-times.js): caches this year's prayer times for all zones. A failed zone only logs a warning.
-2. [scripts/prerender.js](scripts/prerender.js): writes the state and town pages, `404.html` and `sitemap.xml`.
+1. [scripts/fetch-times.js](scripts/fetch-times.js): caches this year's prayer times for all zones. When e-solat fails, the zone's file is copied from the live site.
+2. [scripts/prerender.js](scripts/prerender.js): writes the state and town pages, `404.html`, `sitemap.xml` and `robots.txt`.
 
 ### Lint
 
 ```
 npm run lint
 ```
+
+## Deployment (GitHub Pages)
+
+Before the first [deploy](.github/workflows/deploy.yml), add the site URL:
+
+1. Open **Settings**.
+2. In the sidebar, go to **Secrets and variables** → **Actions**.
+3. Open the **Variables** tab.
+4. Click **New repository variable**.
+5. `VUE_APP_SITE_URL=https://example.com`.
+6. Click **Add variable**.
+
+Use the repository level, not the `github-pages` environment, or the build fails.
 
 ## To do
 

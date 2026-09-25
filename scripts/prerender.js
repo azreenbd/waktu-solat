@@ -1,6 +1,8 @@
 // Runs as npm postbuild. Everything here is build time: the markup and tags it
 // writes are for crawlers and link previews only. Prayer times stay request
 // time -- the Vue app fetches them from the e-solat API on mount.
+require("./load-env");
+
 const fs = require("fs");
 const path = require("path");
 
@@ -300,6 +302,11 @@ function main() {
 
   writeSitemap(pages);
 
+  fs.writeFileSync(
+    path.join(DIST, "robots.txt"),
+    "User-agent: *\nAllow: /\n\nSitemap: " + canonical("/sitemap.xml") + "\n"
+  );
+
   console.log(
     "prerendered " +
       pages.length +
@@ -307,7 +314,7 @@ function main() {
       states.length +
       " states, " +
       towns.length +
-      " towns) + 404.html + sitemap.xml"
+      " towns) + 404.html + sitemap.xml + robots.txt"
   );
 }
 
