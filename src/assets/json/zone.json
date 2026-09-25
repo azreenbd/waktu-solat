@@ -7,7 +7,7 @@
         },
         {
             "id": "JHR02",
-            "name": "Johor Bahru, Kota Tinggi, Mersing",
+            "name": "Johor Bahru, Kota Tinggi, Mersing, Kulai",
             "state": "Johor"
         },
         {
@@ -17,7 +17,7 @@
         },
         {
             "id": "JHR04",
-            "name": "Batu Pahat, Muar, Segamat, Gemas Johor",
+            "name": "Batu Pahat, Muar, Segamat, Gemas Johor, Tangkak",
             "state": "Johor"
         },
         {
@@ -61,8 +61,8 @@
             "state": "Kelantan"
         },
         {
-            "id": "KTN03",
-            "name": "Gua Musang (Daerah Galas Dan Bertam), Jeli",
+            "id": "KTN02",
+            "name": "Gua Musang (Daerah Galas Dan Bertam), Jeli, Jajahan Kecil Lojing",
             "state": "Kelantan"
         },
         {
@@ -77,7 +77,12 @@
         },
         {
             "id": "NGS02",
-            "name": "Jelebu, Kuala Pilah, Port Dickson, Rembau, Seremban",
+            "name": "Jelebu, Kuala Pilah, Rembau",
+            "state": "Negeri Sembilan"
+        },
+        {
+            "id": "NGS03",
+            "name": "Port Dickson, Seremban",
             "state": "Negeri Sembilan"
         },
         {
@@ -87,7 +92,7 @@
         },
         {
             "id": "PHG02",
-            "name": "Kuantan, Pekan, Rompin, Muadzam Shah",
+            "name": "Kuantan, Pekan, Muadzam Shah",
             "state": "Pahang"
         },
         {
@@ -111,6 +116,11 @@
             "state": "Pahang"
         },
         {
+            "id": "PHG07",
+            "name": "Zon Khas Daerah Rompin, (Mukim Rompin, Mukim Endau, Mukim Pontian)",
+            "state": "Pahang"
+        },
+        {
             "id": "PLS01",
             "name": "Kangar, Padang Besar, Arau",
             "state": "Perlis"
@@ -127,7 +137,7 @@
         },
         {
             "id": "PRK02",
-            "name": "Kuala Kangsar, Sg. Siput (Daerah Kecil), Ipoh, Batu Gajah, Kampar",
+            "name": "Kuala Kangsar, Sg. Siput , Ipoh, Batu Gajah, Kampar",
             "state": "Perak"
         },
         {
@@ -197,7 +207,7 @@
         },
         {
             "id": "SBH09",
-            "name": "Beaufort, Kuala Penyu, Sipitang, Tenom, Long Pa Sia, Membakut, Weston, Bahagian Pendalaman (Bawah)",
+            "name": "Beaufort, Kuala Penyu, Sipitang, Tenom, Long Pasia, Membakut, Weston, Bahagian Pendalaman (Bawah)",
             "state": "Sabah"
         },
         {

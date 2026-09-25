@@ -3,16 +3,21 @@
 const zoneJson = require("../json/zone.json");
 const stateJson = require("../json/state.json");
 
-// These two zone names describe a whole state, not a town, so they get no town
-// page -- the state hub is already their page.
-const SKIP_TOWNS = ["Seluruh Negeri Melaka", "Seluruh Negeri Pulau Pinang"];
+// The first two zone names describe a whole state, not a town, so they get no
+// town page -- the state hub is already their page. "(Mukim Rompin" is a comma
+// fragment of PHG07 that would duplicate its "Rompin" page.
+const SKIP_TOWNS = ["Seluruh Negeri Melaka", "Seluruh Negeri Pulau Pinang", "(Mukim Rompin"];
 
 // The zone data abbreviates a few names. Expanding them is what makes the slug match
 // what people actually search for ("shah alam", not "s-alam").
 const TOWN_NAMES = {
   "S.Alam": "Shah Alam",
-  "Sg. Siput (Daerah Kecil)": "Sungai Siput",
-  "Kg Gajah": "Kampung Gajah"
+  "Sg. Siput": "Sungai Siput",
+  "Kg Gajah": "Kampung Gajah",
+  "Zon Khas Daerah Rompin": "Rompin",
+  "Mukim Endau": "Endau",
+  "Mukim Pontian)": "Pontian",
+  "Jajahan Kecil Lojing": "Lojing"
 };
 
 function slugify(value) {
