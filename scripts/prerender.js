@@ -35,9 +35,20 @@ function structuredData(page) {
 
   const crumbs = [{ name: SITE_NAME, item: SITE_URL + "/" }].concat(page.breadcrumbs || []);
 
+  // Keep WebSite as its own node, not nested in isPartOf. Without a WebSite node on
+  // the subdomain home page, Google falls back to the azreenbd.com site name and
+  // groups these pages with the main site.
+  const website = {
+    "@type": "WebSite",
+    "@id": SITE_URL + "/#website",
+    name: SITE_NAME,
+    url: SITE_URL + "/"
+  };
+
   return {
     "@context": "https://schema.org",
     "@graph": [
+      website,
       {
         "@type": "WebPage",
         "@id": url,
@@ -45,7 +56,7 @@ function structuredData(page) {
         name: page.title,
         description: page.description,
         inLanguage: "ms-MY",
-        isPartOf: { "@type": "WebSite", name: SITE_NAME, url: SITE_URL + "/" }
+        isPartOf: { "@id": website["@id"] }
       },
       {
         "@type": "BreadcrumbList",

@@ -13,7 +13,6 @@
 
       <div>
         <a href="https://github.com/azreenbd" title="GitHub" target="_blank" rel="noopener" class="text-muted"><b-icon icon="github" aria-hidden="true" class="mr-1"></b-icon><span class="sr-only">GitHub (tab baharu)</span></a>
-        <a href="https://azreenbd.com" title="Azreenbd Website" target="_blank" rel="noopener" class="text-muted">azreenbd.com<span class="sr-only"> (tab baharu)</span></a>
       </div>
     </footer>
   </div>
