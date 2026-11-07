@@ -24,7 +24,10 @@
                     <div v-for="zone in currentState.zones" :key="zone.id" class="mt-4">
                         <h2 class="zone-title h6 mb-2">{{ zone.id }}</h2>
                         <div>
-                            <router-link v-for="town in zoneTowns(zone.id)" :key="town.townSlug" :to="townPath(town)" class="pill-link" :class="{ dark: darkMode }">{{ town.town }}</router-link>
+                            <!-- The space after each link keeps town names apart in the page text. Without it Google reads "BeaufortKuala Penyu" and quotes that in snippets. -->
+                            <template v-for="town in zoneTowns(zone.id)">
+                                <router-link :key="town.townSlug" :to="townPath(town)" class="pill-link" :class="{ dark: darkMode }">{{ town.town }}</router-link>{{ " " }}
+                            </template>
                         </div>
                     </div>
                 </div>

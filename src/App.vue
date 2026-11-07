@@ -7,7 +7,10 @@
       <nav v-if="footerLinks.towns.length" class="town-links text-center mb-4 px-3" aria-label="Bandar lain">
         <h2 class="h6 mb-2">Waktu solat di {{ footerLinks.state }}</h2>
         <small>
-          <router-link v-for="town in footerLinks.towns" :key="town.key" :to="town.path" class="mx-2 d-inline-block mb-1">{{ town.name }}</router-link>
+          <!-- The space after each link keeps town names apart in the page text. Without it Google reads "BeaufortKuala Penyu" and quotes that in snippets. -->
+          <template v-for="town in footerLinks.towns">
+            <router-link :key="town.key" :to="town.path" class="mx-2 d-inline-block mb-1">{{ town.name }}</router-link>{{ " " }}
+          </template>
         </small>
       </nav>
 
